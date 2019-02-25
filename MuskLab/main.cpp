@@ -35,21 +35,33 @@ void game(){
     int starManCount = 0;
     bool cont = true;
     
-    do{//Round loop
+    do{//Game loop
         
     }while(cont == true);
 }
 
-void gameRound(){
+std::vector<int> gameRound(){
+    int roundOutCome = 0;
+    std::vector<int> results;
+    results.resize(3);// Results vector contains the outcome of the round, and number of turns
+    srand(time(NULL));
     std::vector<std::vector<int>> gameBoard; //2d vector that acts as the game board
     gameBoard.begin();
     gameBoard.resize(15);
     for (int i = 0; i< gameBoard.size();i++){//Sizes the vector properly
         gameBoard.at(i).resize(15);
     }
+    return results;
 }
 
-
+void outputBoard(std::vector<std::vector<int>> gameBoard){
+    for(int i = 0; i < gameBoard.size(); i++){
+        for(int c = 0; c < gameBoard.at(i).size();c++){
+            std:: cout << "*";
+        }
+        std::cout<<std::endl;
+    }
+}
 
 int main() {
    
