@@ -29,10 +29,14 @@
 #include <array>
 #include <vector>
 
-
+void turn(){
+    
+}
 
 std::vector<int> gameRound(){
     int roundOutCome = 0;
+    bool roadsterFound = false;
+    bool isStarman = false;
     std::vector<int> results;
     results.resize(3);// Results vector contains the outcome of the round, and number of turns
     srand(time(NULL));
@@ -42,6 +46,13 @@ std::vector<int> gameRound(){
     for (int i = 0; i< gameBoard.size();i++){//Sizes the vector properly
         gameBoard.at(i).resize(15);
     }
+    
+    turn();
+    
+    results[0] = roundOutCome; //1 = win, -1 = loss
+    results[1] = roadsterFound;
+    results[2] = isStarman;
+    
     return results;
 }
 
