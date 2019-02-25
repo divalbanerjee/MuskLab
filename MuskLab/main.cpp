@@ -29,16 +29,7 @@
 #include <array>
 #include <vector>
 
-void game(){
-    int turns = 0;
-    int roadsterFoundCount = 0;
-    int starManCount = 0;
-    bool cont = true;
-    
-    do{//Game loop
-        
-    }while(cont == true);
-}
+
 
 std::vector<int> gameRound(){
     int roundOutCome = 0;
@@ -63,7 +54,21 @@ void outputBoard(std::vector<std::vector<int>> gameBoard){
     }
 }
 
+void game(){
+    int turns = 0;
+    int roadsterFoundCount = 0;
+    int starManCount = 0;
+    bool cont = true;
+    
+    do{//Game loop
+        std::vector<int> results;
+        results.resize(3);
+        results = gameRound();
+        
+    }while(cont == true);
+}
+
 int main() {
-   
+    game();
     return 0;
 }
