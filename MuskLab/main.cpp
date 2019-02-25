@@ -29,10 +29,43 @@
 #include <array>
 #include <vector>
 
-void turn(){
-    
+int getRandomNumber(int randMax){ //Generates randon number with upper bound
+    int randNum = 0;
+    randNum = rand() % randMax;
+    return randNum;
 }
 
+std::vector<std::vector<int>> setupGameBoad(){
+    std::vector<std::vector<int>> gameBoard; //2d vector that acts as the game board, a value of 0 is empty, 1 is elon, 2 is roadster,
+    // 3 is yugo, 4 is pinto, and 5 is player
+    gameBoard.begin();
+    gameBoard.resize(15);
+    
+    for (int i = 0; i< gameBoard.size();i++){//Sizes the vector properly
+        gameBoard.at(i).resize(15);
+    }
+    for (int i = 0; i< gameBoard.size();i++){
+        for(int c = 0; c<gameBoard.size(); i++){
+            gameBoard.at(i).at(c) = 0;
+        }
+    }
+    return gameBoard;
+}
+
+std::vector<int> getPosition(std::vector<std::vector<int>> gameBoard, int character){
+    std::vector<int> coordinates;
+    coordinates.resize(2);
+    
+    for(int i = 0; i < gameBoard.size(); i++){
+        for(int c = 0; c < gameBoard.at(i).size(); c ++ )
+            if(gameBoard.at(i).at(c) == character){
+                coordinates.at(0) = i;
+                coordinates.at(1) = c;
+            }
+    }
+    return coordinates;
+}
+                                            
 std::vector<int> gameRound(){
     int roundOutCome = 0;
     bool roadsterFound = false;
@@ -40,18 +73,22 @@ std::vector<int> gameRound(){
     std::vector<int> results;
     results.resize(3);// Results vector contains the outcome of the round, and number of turns
     srand(time(NULL));
-    std::vector<std::vector<int>> gameBoard; //2d vector that acts as the game board
-    gameBoard.begin();
-    gameBoard.resize(15);
-    for (int i = 0; i< gameBoard.size();i++){//Sizes the vector properly
-        gameBoard.at(i).resize(15);
+    
+    //turn();
+    std::vector<std::vector<int>> gameBoard = setupGameBoad();
+    
+    for(int i = 0; i < 5; i++){
+        int randX = getRandomNumber(14);
+        int randY = getRandomNumber(14);
+        
+        gameBoard.at(randX).at(randY) = i;
     }
     
-    turn();
     
-    results[0] = roundOutCome; //1 = win, -1 = loss
-    results[1] = roadsterFound;
-    results[2] = isStarman;
+    
+    results.at(0) = roundOutCome; //1 = win, -1 = loss
+    results.at(1) = roadsterFound;
+    results.at(2) = isStarman;
     
     return results;
 }
@@ -59,24 +96,45 @@ std::vector<int> gameRound(){
 void outputBoard(std::vector<std::vector<int>> gameBoard){
     for(int i = 0; i < gameBoard.size(); i++){
         for(int c = 0; c < gameBoard.at(i).size();c++){
-            std:: cout << "*";
+            if(gameBoard.at(i).at(c) == 0){
+               std::cout << "*"; //* is an empty space
+            }else if(gameBoard.at(i).at(c) == 1){
+                std::cout <<"E"; // E is a sleeping Elon Musk
+            }else if(gameBoard.at(i).at(c) == 2){
+                std::cout <<"R"; // R is Roadster
+            }else if(gameBoard.at(i).at(c) == 3){
+                std::cout <<"Y"; // Y is yugo
+            }else if(gameBoard.at(i).at(c) == 4){
+                std::cout <<"P"; // P is pinto
+            }else if(gameBoard.at(i).at(c) == 5){
+                    std::cout <<"@"; // @ is a player
+            }
+            std::cout<< std::endl;
         }
-        std::cout<<std::endl;
     }
 }
-
+            
+            
+void turn(std::vector<std::vector<int>> gameBoard){
+    outputBoard(gameBoard);
+                
+}
+            
 void game(){
     int turns = 0;
     int roadsterFoundCount = 0;
     int starManCount = 0;
-    bool cont = true;
+    bool cont = 1;
     
     do{//Game loop
         std::vector<int> results;
         results.resize(3);
         results = gameRound();
         
-    }while(cont == true);
+        std::cout<< "Enter 1 to play another round. Any other number to exit" << std::endl;
+        std::cin>>cont;
+        
+    }while(cont == 1);
 }
 
 int main() {
