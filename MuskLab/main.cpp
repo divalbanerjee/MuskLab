@@ -33,11 +33,11 @@ void game(){
     int turns = 0;
     int roadsterFoundCount = 0;
     int starManCount = 0;
-    bool continue = true;
+    bool cont = true;
     
-    do{
+    do{//Round loop
         
-    }while(continue == true)
+    }while(cont == true);
 }
 
 void gameRound(){
